@@ -210,61 +210,41 @@
 
         .identity-module {
             display: grid;
-            grid-template-columns: 178px 1fr;
-            gap: 18px;
-            align-items: center;
-            padding: 22px;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            padding: 20px;
             border-bottom: 1px solid var(--line);
         }
 
-        .headshot-shell {
+        .ascii-portrait {
             position: relative;
-            width: 168px;
-            height: 168px;
-            display: grid;
-            place-items: center;
-        }
-
-        .headshot-shell::before,
-        .headshot-shell::after {
-            content: "";
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .headshot-shell::before {
-            inset: -10px;
-            border: 1px solid rgba(0, 213, 255, 0.38);
-            border-top-color: var(--green);
-            border-right-color: var(--pink);
-            animation: spin 9s linear infinite;
-        }
-
-        .headshot-shell::after {
-            inset: 11px;
-            border: 1px dashed rgba(255, 200, 87, 0.42);
-            animation: spin 16s linear infinite reverse;
-        }
-
-        .headshot {
-            position: relative;
-            z-index: 1;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            border: 1px solid rgba(0, 213, 255, 0.24);
+            background: #000;
             overflow: hidden;
-            border: 3px solid rgba(5, 7, 12, 0.95);
-            box-shadow: 0 0 0 1px rgba(54, 244, 164, 0.38), 0 24px 58px rgba(0, 0, 0, 0.45);
-            background: var(--panel);
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
         }
 
-        .headshot img {
-            width: 100%;
-            height: 100%;
+        .ascii-portrait .ascii-img {
             display: block;
-            object-fit: cover;
-            object-position: center 28%;
+            width: 100%;
+            height: auto;
+            mix-blend-mode: screen;
+            filter: sepia(1) hue-rotate(125deg) saturate(3.2) brightness(1.15) contrast(1.05);
+        }
+
+        .ascii-scanline {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -30px;
+            height: 30px;
+            background: linear-gradient(180deg, transparent, rgba(54, 244, 164, 0.16), transparent);
+            animation: scan 3.6s linear infinite;
+            pointer-events: none;
         }
 
         .orbit-chip {
@@ -275,7 +255,7 @@
             gap: 7px;
             padding: 7px 9px;
             border: 1px solid rgba(148, 163, 184, 0.22);
-            background: rgba(5, 7, 12, 0.8);
+            background: rgba(5, 7, 12, 0.85);
             color: var(--text);
             font-family: var(--font-mono);
             font-size: 10px;
@@ -283,8 +263,10 @@
         }
 
         .orbit-chip i { color: var(--green); }
-        .orbit-chip.one { top: 6px; right: -16px; }
-        .orbit-chip.two { bottom: 12px; left: -18px; }
+        .orbit-chip.one { top: 10px; right: 10px; }
+        .orbit-chip.two { bottom: 10px; left: 10px; }
+
+        .identity-copy { text-align: center; }
 
         .identity-copy h2 {
             margin: 0 0 9px;
@@ -588,6 +570,11 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes scan {
+            0% { top: -30px; }
+            100% { top: 100%; }
+        }
+
         @media (max-width: 1000px) {
             .hero, .project-lab, .contact-panel { grid-template-columns: 1fr; }
             .hero { min-height: auto; }
@@ -607,9 +594,8 @@
             h1 { font-size: clamp(40px, 13vw, 58px); line-height: 0.98; }
             .hero-copy { font-size: 15px; line-height: 1.65; }
             .button { width: 100%; }
-            .identity-module { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 20px 16px; }
-            .headshot-shell { width: 152px; height: 152px; }
-            .headshot { width: 136px; height: 136px; }
+            .identity-module { padding: 16px 12px; }
+            .ascii-portrait { padding: 0; }
             .orbit-chip { display: none; }
             .terminal-body { padding: 16px; }
             .terminal-line { grid-template-columns: 1fr; gap: 6px; font-size: 12px; }
@@ -671,10 +657,11 @@
                     <span>production-console</span>
                 </div>
                 <div class="identity-module">
-                    <div class="headshot-shell">
-                        <div class="headshot"><img src="assets/amit-kumar-headshot.jpeg" alt="Amit Kumar"></div>
+                    <div class="ascii-portrait" data-tilt>
+                        <div class="ascii-scanline"></div>
                         <div class="orbit-chip one"><i class="fa-solid fa-bolt"></i> Kafka</div>
                         <div class="orbit-chip two"><i class="fa-solid fa-cloud"></i> AWS</div>
+                        <img class="ascii-img" src="assets/ascii.svg" alt="ASCII portrait of Amit Kumar" loading="lazy">
                     </div>
                     <div class="identity-copy">
                         <h2>Amit Kumar</h2>
